@@ -147,39 +147,37 @@ public class NetCDFParser extends AbstractParser {
      						xhtml.characters(";");
 							xhtml.newline();
 						}
-            	}  
+            	}
+                    //Adding xhtml output for data
+                    xhtml.startElement("table");
+                    xhtml.newline();
+                    xhtml.startElement("th");
+                    xhtml.newline();
+            	
+                        for (Variable var : ncFile.getVariables()){
+                            xhtml.startElement("td");
+                            xhtml.characters(var.getFullName());
+                            xhtml.endElement("td");
+                            xhtml.newline();
+                        }
             
-            
-            	
-            	xhtml.startElement("table");
-            	xhtml.newline();
-            	xhtml.startElement("th");
-            	xhtml.newline();
-            	
-            	for (Variable var : ncFile.getVariables()){
-					xhtml.startElement("td");
-					xhtml.characters(var.getFullName()); 
-					xhtml.endElement("td");
-					xhtml.newline();
-            	}   
-            	xhtml.endElement("th");
-            	xhtml.newline();
-            	
+                    xhtml.endElement("th");
+                    xhtml.newline();
 
-            	xhtml.startElement("tr");
-            	xhtml.newline();
+                    xhtml.startElement("tr");
+                    xhtml.newline();
 
             	
-            	for (Variable var : ncFile.getVariables()){
-					xhtml.startElement("td");
-					xhtml.characters(String.valueOf(var.read())); 
-					xhtml.endElement("td");
-					xhtml.newline();
-            	}   
-            	xhtml.endElement("tr");
-            	xhtml.endElement("table"); 
+                        for (Variable var : ncFile.getVariables()){
+                            xhtml.startElement("td");
+                            xhtml.characters(String.valueOf(var.read()));
+                            xhtml.endElement("td");
+                            xhtml.newline();
+                        }
+                    xhtml.endElement("tr");
+                    xhtml.endElement("table");
             	
-xhtml.endDocument();
+            xhtml.endDocument();
          
         } catch (IOException e) {
             throw new TikaException("NetCDF parse error", e);
@@ -192,7 +190,4 @@ xhtml.endDocument();
         }
         return Property.internalText(localName);
     }
-    
-         
-    
 }
