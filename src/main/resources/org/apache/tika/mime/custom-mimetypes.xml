@@ -1,0 +1,7 @@
+  <mime-type type="application/x-netcdf">
+    <glob pattern="*.nc"/>
+    <glob pattern="*.cdf"/>
+  </mime-type>
+
+
+
